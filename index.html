@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Chatbot</title>
+</head>
+<body>
+    <h2>Language Translation Chatbot</h2>
+    <textarea id="user-input" placeholder="Type your message..."></textarea>
+    <button onclick="translateText()">Translate</button>
+    <p><strong>Translated:</strong> <span id="translated-text"></span></p>
+
+    <script>
+        async function translateText() {
+            let text = document.getElementById('user-input').value;
+            let response = await fetch('/translate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: text })
+            });
+            let data = await response.json();
+            document.getElementById('translated-text').innerText = data.translated_text;
+        }
+    </script>
+</body>
+</html>
